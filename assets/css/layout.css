@@ -1,4 +1,7 @@
 body {
-    margin: 0;
-    text-align: center;
-}
+  margin: 0;
+  text-align: center; }
+  body ul {
+    list-style: none; }
+  body #layout-main {
+    height: 605px; }

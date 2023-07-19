@@ -1,0 +1,15 @@
+header {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  color: azure;
+  background-color: #121213; }
+  header ul {
+    display: flex;
+    list-style: none;
+    text-decoration: none; }
+    header ul li {
+      padding: 10px; }
+      header ul li a {
+        text-decoration: none;
+        color: azure; }
