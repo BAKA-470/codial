@@ -11,10 +11,10 @@ const postSchema = new mongoose.Schema({
         ref: 'User'
     },
     // adding the ids of comments in post schema for reference
-    comments: {
+    comments: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'comment'
-    }
+        ref: 'Comment'
+    }]
 
 }, {
     timestamps: true
