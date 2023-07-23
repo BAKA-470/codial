@@ -61,13 +61,15 @@ passport.deserializeUser(async function(id, done) {
 // });
 
 // Check if the user is authenticated
-passport.checkAthentication = function(req, res, next) {
+passport.checkAuthentication = function(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
     // if user is not signed in
     return res.redirect('/users/sign-in');
 }
+
+
 
 
 passport.setAuthenticateUser = function(req, res, next) {
