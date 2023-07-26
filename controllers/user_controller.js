@@ -123,6 +123,7 @@ module.exports.create = function(req, res) {
 
 // creating a session while signing in
 module.exports.createSession = function(req, res) {
+    req.flash('success', 'Logged in Successfully');
     return res.redirect('/');
 
 }
@@ -132,6 +133,7 @@ module.exports.destroySession = function(req, res) {
         if (err) { return (err); }
         res.redirect('/users/profile');
     });
+    req.flash('success', 'Logged out Successfully');
 
     return res.redirect('/users/sign-in');
 }
