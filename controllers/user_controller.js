@@ -1,10 +1,20 @@
 const User = require('../models/user');
 // const User = require('../models/user');
 
-module.exports.profile = function(req, res) {
-    return res.render('user1', {
-        title: 'user1'
-    });
+module.exports.profile = async function(req, res) {
+    try {
+        const user = await User.findById(req.params.id);
+
+
+        return res.render('user1', {
+            title: 'user1',
+            profile_user: user
+        });
+    } catch (err) {
+        console.error('Error fetching your request:', err);
+        return res.status(500).json({ error: 'An error occurred while fetching your request' });
+    }
+
 }
 
 // rendering the sign up page

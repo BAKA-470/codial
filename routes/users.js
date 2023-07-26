@@ -5,7 +5,7 @@ const passport = require('passport');
 
 const usersController = require('../controllers/user_controller');
 
-router.get('/profile', function(req, res, next) {
+router.get('/profile/:id', function(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }

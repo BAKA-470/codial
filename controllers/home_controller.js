@@ -1,5 +1,5 @@
 const Post = require('../models/post');
-
+const User = require('../models/user');
 // module.exports.home = function(req, res) {
 //     // console.log(req.cookies);
 
@@ -15,15 +15,18 @@ const Post = require('../models/post');
 module.exports.home = async function(req, res) {
     try {
         const posts = await Post.find({}).populate('user').populate({
-            path: 'comments',
-            populate: {
-                path: 'user'
-            }
-        });
+                path: 'comments',
+                populate: {
+                    path: 'user'
+                },
+            })
+            .exec();
+        const users = await User.find({}).exec();
 
         const data = {
             title: 'Codial | Home',
-            posts: posts
+            posts: posts,
+            all_users: users
         };
 
         return res.render('home', data);
