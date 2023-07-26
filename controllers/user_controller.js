@@ -95,6 +95,7 @@ module.exports.create = function(req, res) {
                             console.log('Error in creating user while signing up');
                             return;
                         }
+                        req.flash('success', 'Welcome new user,Please log in');
                         return res.redirect('/users/sign-in');
                     });
                 // User.create(req.body, function(err, user) {
@@ -133,7 +134,7 @@ module.exports.destroySession = function(req, res) {
         if (err) { return (err); }
         res.redirect('/users/profile');
     });
-    req.flash('success', 'Logged out Successfully');
+    req.flash('success', 'You were logged out');
 
     return res.redirect('/users/sign-in');
 }

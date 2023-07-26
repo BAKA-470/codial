@@ -24,12 +24,14 @@ module.exports.create = async function(req, res) {
             content: req.body.content,
             user: req.user._id,
         });
+        req.flash('success', 'Post created!!');
 
         // Handle successful creation
         return res.status(201).redirect('back'); // 201 Created status code for successful creation
     } catch (err) {
-        console.error('Error in creating the post', err);
-        return res.status(500).json({ error: 'An error occurred while creating the post' });
+        req.flash('error', err);
+        // console.error('Error in creating the post', err);
+        return res.status(201).redirect('back');
     }
 };
 
@@ -59,13 +61,16 @@ module.exports.destroy = async function(req, res) {
             post.deleteOne(), // Use 'deleteOne()' to delete the post from the database
             Comment.deleteMany({ post: req.params.id }),
         ]);
+        req.flash('success', 'Post Deleted!!!');
 
         // Redirect back to the previous page after successful deletion
         return res.redirect('back');
     } catch (err) {
         // Handle any errors that occurred during the process
-        console.error("Error deleting post:", err);
-        return res.status(500).send("An error occurred while deleting the post.");
+        req.flash('error', err);
+        // console.error("Error deleting post:", err);
+        return res.redirect('back');
+        // return res.status(500).send("An error occurred while deleting the post.");
     }
 };
 

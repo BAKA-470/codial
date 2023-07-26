@@ -1,39 +1,56 @@
 const passport = require('passport');
+// const bcrypt = require('bcrypt');
 
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 
 // authentication
-passport.use(new LocalStrategy({
-    usernameField: 'email'
-}, async(email, password, done) => {
-    // find user
-    const user = await User.findOne({ email: email });
-    if (user && user.password === password) {
-        return done(null, user);
-    } else {
-        return done(new Error('Incorrect Username and /or Password'));
-    }
-}));
 // passport.use(new LocalStrategy({
-//         usernameField: 'email'
-//     },
-//     function(email, password, done) {
-//         // find user
-//         User.findOne({ email: email }).then(function(err, user) {
-//             if (err) {
-//                 console.log('Error in finding the user ==> Passport');
-//                 return done(err);
-//             }
-//             if (!user || user.password != password) {
-//                 console.log("Invalid Email or Password");
-//                 return done(null, false, { message: 'Incorrect Username and /or Password' });
-//             }
-
-//             return done(null, user);
-//         });
+//     usernameField: 'email',
+//     passReqToCallback: true
+// }, async(email, password, done) => {
+//     // find user
+//     const user = await User.findOne({ email: email });
+//     if (user && user.password === password) {
+//         return done(null, user);
+//     } else {
+//         req.flash('error', 'Incorrect Username and /or Password')
+//         return done(new Error('Incorrect Username and /or Password'));
 //     }
-// ));
+// }));
+
+passport.use(
+    new LocalStrategy({
+            usernameField: 'email',
+            passReqToCallback: true,
+        },
+        async(req, email, password, done) => {
+            try {
+                // Find user by email
+                const user = await User.findOne({ email: email });
+
+                if (!user) {
+                    req.flash('error', 'Incorrect Username and/or Password');
+                    return done(null, false, { message: 'Incorrect Username and/or Password' });
+                }
+
+                // Compare the provided password with the password stored in the database
+                if (user.password !== password) {
+                    req.flash('error', 'Incorrect Username and/or Password');
+                    return done(null, false, { message: 'Incorrect Username and/or Password' });
+                }
+
+                // Authentication succeeded
+                return done(null, user);
+            } catch (err) {
+                console.error('Error in finding the user ==> Passport', err);
+                return done(err);
+            }
+        }
+    )
+);
+
+
 
 // serializing the user to decide which key to keep in cookies
 passport.serializeUser(function(user, done) {
