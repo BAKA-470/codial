@@ -15,7 +15,51 @@ module.exports.profile = async function(req, res) {
         return res.status(500).json({ error: 'An error occurred while fetching your request' });
     }
 
-}
+};
+
+
+
+
+module.exports.update = async function(req, res) {
+    try {
+        // Check if the current user is authorized to update the profile
+        if (req.user.id !== req.params.id) {
+            return res.status(401).send('Unauthorized');
+        }
+
+        // Find the user by ID and update the user data
+        const updatedUser = await User.findOneAndUpdate({ _id: req.params.id },
+            req.body, {
+                new: true, // Return the updated user after the update
+                runValidators: true, // Run Mongoose validators on the update data
+            }
+        ).exec();
+
+        // Check if the user exists and was updated successfully
+        if (!updatedUser) {
+            return res.status(404).send('User not found or unable to update.');
+        }
+
+        // Redirect back to the previous page or send a success message
+        return res.redirect('back'); // Or send a success message, e.g., res.status(200).send("User updated successfully.");
+    } catch (err) {
+        // Handle any errors that occurred during the process
+        console.error('Error updating user:', err);
+        return res.status(500).send('An error occurred while updating the user.');
+    }
+};
+
+
+// module.exports.update = async function(req, res) {
+//     if (req.user.id == req.params.id) {
+//         User.findByIdAndUpdate(req.params.id, req.body, function(err, user) {
+//             return res.redirect('back');
+
+//         });
+//     } else {
+//         return res.status(401).send('Unauthorized');
+//     }
+// };
 
 // rendering the sign up page
 module.exports.signUp = function(req, res) {

@@ -4,6 +4,10 @@ header {
   justify-content: space-between;
   color: azure;
   background-color: #121213; }
+  header a {
+    text-decoration: none; }
+    header a h2 {
+      color: azure; }
   header ul {
     display: flex;
     list-style: none;
