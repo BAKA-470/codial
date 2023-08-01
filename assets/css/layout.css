@@ -1,7 +1,11 @@
 body {
   margin: 0;
-  text-align: center; }
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column; }
   body ul {
     list-style: none; }
   body #layout-main {
-    height: 614px; }
+    flex: 1;
+    padding-bottom: 50px; }

@@ -33,7 +33,7 @@
                 <script>
                     <% if(flash.success && flash.success.length > 0) { %>
                     new Noty({
-                        theme: 'relax',
+                        theme: 'nest',
                         text: '<%= flash.success %>',
                         type: 'success',
                         layout: 'topLeft',
@@ -43,7 +43,7 @@
 
                     <% if(flash.error && flash.error.length > 0) { %>
                     new Noty({
-                        theme: 'relax',
+                        theme: 'nest',
                         text: '<%= flash.error %>',
                         type: 'error',
                         layout: 'topLeft',

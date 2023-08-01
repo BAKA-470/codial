@@ -1,0 +1,25 @@
+body {
+    background-color: #111727;
+    color: azure;
+    form {
+        padding: 20px;
+        input {
+            margin: 10px;
+            padding: 10px;
+        }
+        button {
+            border-radius: 5px;
+            border: none;
+            width: 190px;
+            background-color: #121213;
+            color: azure;
+            box-shadow: 0 4px 0 #03113f;
+            height: 20px;
+            transition: transform 0.2s box-shadow 0.2s;
+        }
+        button:active {
+            transform: translateX(4px) translateY(4px);
+            box-shadow: 0 0 0 #03113f;
+        }
+    }
+}
