@@ -40,6 +40,14 @@ module.exports.create = async function(req, res) {
         };
 
         const comment = await Comment.create(commentData);
+        if (req.xhr) {
+            return res.status(200).json({
+                data: {
+                    comment: comment
+                },
+                message: 'Comment Created'
+            });
+        }
 
         // Ensure the comments property is initialized as an array
         if (!post.comments) {

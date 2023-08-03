@@ -9,6 +9,35 @@ footer {
   height: 50px; }
   footer div {
     margin-top: 20px; }
+  footer nav {
+    display: flex; }
+    footer nav .list {
+      list-style: none;
+      align-items: center;
+      justify-content: center;
+      transform: translateX(-10px);
+      transition: transform 0.4s ease-in-out; }
+      footer nav .list div {
+        display: flex;
+        flex-direction: column; }
+        footer nav .list div a {
+          text-decoration: none;
+          color: azure; }
+    footer nav .list:hover div {
+      transform: translateX(-10px); }
+    footer nav .list i {
+      opacity: 1;
+      transition: opacity 0.4s ease-in-out; }
+    footer nav .list span {
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out; }
+    footer nav .list:hover span {
+      opacity: 1; }
+  footer nav:hover li:not(:hover) {
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out; }
+  footer li:hover {
+    opacity: 1; }
   footer ul {
     display: flex; }
     footer ul li {

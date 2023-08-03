@@ -69,6 +69,17 @@ module.exports.destroy = async function(req, res) {
             post.deleteOne(), // Use 'deleteOne()' to delete the post from the database
             Comment.deleteMany({ post: req.params.id }),
         ]);
+        if (req.xhr) {
+            return res.status(200).json({
+                data: {
+                    post_id: req.params.id
+                },
+                message: 'Post Deleted!!'
+            });
+        }
+
+
+
         req.flash('success', 'Post Deleted!!!');
 
         // Redirect back to the previous page after successful deletion

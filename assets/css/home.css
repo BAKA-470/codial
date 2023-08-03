@@ -23,3 +23,6 @@
     padding: 10px;
     border-left: 1px solid lightgrey;
     height: 100%; }
+    #home-container #user-friends a {
+      text-decoration: none;
+      color: azure; }
