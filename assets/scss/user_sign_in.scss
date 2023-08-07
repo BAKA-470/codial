@@ -1,25 +1,43 @@
 body {
     background-color: #111727;
     color: azure;
-    form {
-        padding: 20px;
-        input {
-            margin: 10px;
-            padding: 10px;
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .form-container {
+            // border: 1px solid black;
+            border-radius: 10px;
+            width: 40%;
+            background-color: #3b519a;
         }
-        button {
-            border-radius: 5px;
-            border: none;
-            width: 190px;
-            background-color: #121213;
-            color: azure;
-            box-shadow: 0 4px 0 #03113f;
-            height: 20px;
-            transition: transform 0.2s box-shadow 0.2s;
+        .form-container:hover {
+            background-color: #192650;
+            transform: translateY(-10px);
         }
-        button:active {
-            transform: translateX(4px) translateY(4px);
-            box-shadow: 0 0 0 #03113f;
+        form {
+            padding: 20px;
+            input {
+                margin: 10px;
+                padding: 10px;
+                border-radius: 10px;
+                border: none;
+            }
+            button {
+                border-radius: 5px;
+                border: none;
+                width: 190px;
+                background-color: #121213;
+                color: azure;
+                box-shadow: 0 4px 0 #03113f;
+                height: 20px;
+                transition: transform 0.2s box-shadow 0.2s;
+            }
+            button:active {
+                transform: translateX(4px) translateY(4px);
+                box-shadow: 0 0 0 #03113f;
+            }
         }
     }
 }
