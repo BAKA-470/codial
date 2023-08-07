@@ -56,7 +56,7 @@ module.exports.create = async function(req, res) {
 
         post.comments.push(comment);
         await post.save();
-
+        req.flash('success', 'Comment Posted');
         res.redirect('/');
     } catch (err) {
         // Handle any other errors that may occur during the process
@@ -89,8 +89,8 @@ module.exports.destroy = async function(req, res) {
 
         // Remove the comment reference from the post
         await Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } });
-
         // Redirect back to the previous page or send a success message
+        req.flash('success', 'Comment deleted');
         return res.redirect('back'); // Or send a success message, e.g., res.status(200).send("Comment deleted successfully.");
     } catch (err) {
         // Handle any errors that occurred during the process

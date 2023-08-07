@@ -1,5 +1,7 @@
 const User = require('../models/user');
-// const User = require('../models/user');
+const fs = require('fs');
+const path = require('path');
+
 
 module.exports.profile = async function(req, res) {
     try {
@@ -26,22 +28,44 @@ module.exports.update = async function(req, res) {
         if (req.user.id !== req.params.id) {
             return res.status(401).send('Unauthorized');
         }
+        let user = await User.findById(req.params.id);
+        User.uploadedAvatar(req, res, function(err) {
+            if (!err && !req.file) {
+                console.log('*****************Multer error***********', err);
+            }
+            user.name = req.body.name;
+            user.email = req.body.email;
+
+            if (req.file) {
+                if (user.avatar) {
+                    fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+                }
+                user.avatar = User.avatarPath + '/' + req.file.filename
+
+
+            }
+            user.save();
+            req.flash('success', 'Updated');
+            return res.redirect('back');
+        })
 
         // Find the user by ID and update the user data
-        const updatedUser = await User.findOneAndUpdate({ _id: req.params.id },
-            req.body, {
-                new: true, // Return the updated user after the update
-                runValidators: true, // Run Mongoose validators on the update data
-            }
-        ).exec();
+        // const updatedUser = await User.findOneAndUpdate({ _id: req.params.id },
+
+        //     req.body, {
+        //         new: true, // Return the updated user after the update
+        //         runValidators: true, // Run Mongoose validators on the update data
+        //     }
+        // ).exec();
 
         // Check if the user exists and was updated successfully
-        if (!updatedUser) {
-            return res.status(404).send('User not found or unable to update.');
-        }
+        // if (!updatedUser) {
+        //     return res.status(404).send('User not found or unable to update.');
+        // }
 
         // Redirect back to the previous page or send a success message
-        return res.redirect('back'); // Or send a success message, e.g., res.status(200).send("User updated successfully.");
+
+        // return res.redirect('back'); // Or send a success message, e.g., res.status(200).send("User updated successfully.");
     } catch (err) {
         // Handle any errors that occurred during the process
         console.error('Error updating user:', err);
@@ -50,16 +74,6 @@ module.exports.update = async function(req, res) {
 };
 
 
-// module.exports.update = async function(req, res) {
-//     if (req.user.id == req.params.id) {
-//         User.findByIdAndUpdate(req.params.id, req.body, function(err, user) {
-//             return res.redirect('back');
-
-//         });
-//     } else {
-//         return res.status(401).send('Unauthorized');
-//     }
-// };
 
 // rendering the sign up page
 module.exports.signUp = function(req, res) {
@@ -106,20 +120,7 @@ module.exports.create = function(req, res) {
                 return res.redirect('back');
             }
         });
-    // User.findOne({ email: req.body.email }, function(err, user) {
-    // if (err) {
-    //     console.log('Error in finding the user');
-    //     return
-    // }
-    // if (!user) {
-    //     User.create(req.body, function(err, user) {
-    //         if (err) { console.log('Error in creating user while signing up'); return }
 
-    //         return res.redirect('/users/sign-in')
-    //     })
-    // } else {
-    //     return res.redirect('back');
-    // }
 };
 
 // creating a session while signing in

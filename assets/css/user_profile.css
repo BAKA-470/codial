@@ -1,3 +1,32 @@
 body {
   background-color: #111727;
   color: azure; }
+  body img {
+    border-radius: 50%; }
+  body div {
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  body .form-con {
+    border: none;
+    border-radius: 20px;
+    background-color: #3b519a;
+    width: 40%;
+    padding: 20px; }
+    body .form-con input {
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none; }
+    body .form-con button {
+      border-radius: 5px;
+      border: none;
+      width: 190px;
+      background-color: #121213;
+      color: azure;
+      box-shadow: 0 4px 0 #03113f;
+      height: 20px;
+      transition: transform 0.2s box-shadow 0.2s; }
+    body .form-con button:active {
+      transform: translateX(4px) translateY(4px);
+      box-shadow: 0 0 0 #03113f; }
