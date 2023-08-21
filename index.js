@@ -7,12 +7,12 @@ const db = require('./config/mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
 const MongoStore = require('connect-mongo'); // To store the session in database
 const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
-// const favicon = require('serve-favicon');
-// const path = require('path');
+
 
 app.use(sassMiddleware({
     src: './assets/scss',
@@ -23,8 +23,7 @@ app.use(sassMiddleware({
 
 }));
 
-// app.use(favicon(path.join(__dirname, 'assets', 'images', 'favicon.ico')));
-// app.use(favicon(__dirname + '/assets/images/favicon.ico'));
+
 
 
 app.use(express.urlencoded({ extended: true }));
