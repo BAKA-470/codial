@@ -32,32 +32,29 @@ module.exports.destroy = async function(req, res) {
         // }
 
         // Check if the current user is the author of the post
-        // if (post.user.id !== req.user.id) {
-        //     return res.status(403).send("You don't have permission to delete this post.");
-        // }
+        if (post.user.id == req.user.id) {
+            await Promise.all([
+                post.deleteOne(), // Use 'deleteOne()' to delete the post from the database
+                Comment.deleteMany({ post: req.params.id }),
+            ]);
+            return res.status(200).json({
+                message: 'Post and associated comments deleted successfully!!!'
+            });
 
-        // Delete the post and associated comments
-        await Promise.all([
-            post.deleteOne(), // Use 'deleteOne()' to delete the post from the database
-            Comment.deleteMany({ post: req.params.id }),
-        ]);
-        // if (req.xhr) {
-        //     return res.status(200).json({
-        //         data: {
-        //             post_id: req.params.id
-        //         },
-        //         message: 'Post Deleted!!'
-        //     });
-        // }
+        } else {
+            return res.status(401).json({
+                message: "You can't delete this post "
+            });
+        };
 
 
 
-        // req.flash('success', 'Post Deleted!!!');
+
+
+
 
         // Redirect back to the previous page after successful deletion
-        return res.status(200).json({
-            message: "post and associalted comments deleted successfully"
-        });
+
     } catch (err) {
         // Handle any errors that occurred during the process
         // req.flash('error', err);
