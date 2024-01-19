@@ -1,0 +1,28 @@
+#home-container {
+  height: 90%;
+  display: flex; }
+  #home-container #feed-post {
+    width: 70%;
+    padding: 10px; }
+    #home-container #feed-post form #post-button {
+      border-radius: 5px;
+      background-color: #090e33d6;
+      padding: 1px 2px;
+      width: 200px;
+      border: none;
+      margin: 20px;
+      color: azure;
+      box-shadow: 0 4px 0 #070b27d6;
+      transition: transform 0.2s, box-shadow 0.2s;
+      height: 30px; }
+    #home-container #feed-post form #post-button:active {
+      box-shadow: 0 0 0 #070b27d6;
+      transform: translateX(4px) translateY(4px); }
+  #home-container #user-friends {
+    width: 30%;
+    padding: 10px;
+    border-left: 1px solid lightgrey;
+    height: 100%; }
+    #home-container #user-friends a {
+      text-decoration: none;
+      color: azure; }

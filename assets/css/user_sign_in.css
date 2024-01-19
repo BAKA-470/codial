@@ -1,0 +1,30 @@
+body {
+  background-color: #111727;
+  color: azure; }
+  body div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    body div .form-container {
+      border-radius: 10px;
+      width: 40%; }
+    body div form {
+      padding: 20px; }
+      body div form input {
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        border: none; }
+      body div form button {
+        border-radius: 5px;
+        border: none;
+        width: 190px;
+        background-color: #121213;
+        color: azure;
+        box-shadow: 0 4px 0 #03113f;
+        height: 20px;
+        transition: transform 0.2s box-shadow 0.2s; }
+      body div form button:active {
+        transform: translateX(4px) translateY(4px);
+        box-shadow: 0 0 0 #03113f; }

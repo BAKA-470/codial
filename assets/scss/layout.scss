@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #111727;
+    color: azure;
+    ul {
+        list-style: none;
+    }
+    #layout-main {
+        // flex: 1;
+        padding-bottom: 50px;
+        overflow: auto;
+    }
+}
