@@ -8,11 +8,7 @@ body {
     align-items: center; }
     body div .form-container {
       border-radius: 10px;
-      width: 40%;
-      background-color: #3b519a; }
-    body div .form-container:hover {
-      background-color: #192650;
-      transform: translateY(-10px); }
+      width: 40%; }
     body div form {
       padding: 20px; }
       body div form input {
