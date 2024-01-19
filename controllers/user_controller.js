@@ -3,77 +3,11 @@ const fs = require('fs');
 const path = require('path');
 
 
-module.exports.profile = async function(req, res) {
-    try {
-        const user = await User.findById(req.params.id);
-
-
-        return res.render('user1', {
-            title: 'user1',
-            profile_user: user
-        });
-    } catch (err) {
-        console.error('Error fetching your request:', err);
-        return res.status(500).json({ error: 'An error occurred while fetching your request' });
-    }
-
-};
-
-
-
-
-module.exports.update = async function(req, res) {
-    try {
-        // Check if the current user is authorized to update the profile
-        if (req.user.id !== req.params.id) {
-            return res.status(401).send('Unauthorized');
-        }
-        let user = await User.findById(req.params.id);
-        User.uploadedAvatar(req, res, function(err) {
-            if (!err && !req.file) {
-                console.log('*****************Multer error***********', err);
-            }
-            user.name = req.body.name;
-            user.email = req.body.email;
-
-            if (req.file) {
-                if (user.avatar) {
-                    fs.unlinkSync(path.join(__dirname, '..', user.avatar));
-                }
-                user.avatar = User.avatarPath + '/' + req.file.filename
-
-
-            }
-            user.save();
-            req.flash('success', 'Updated');
-            return res.redirect('back');
-        })
-
-        // Find the user by ID and update the user data
-        // const updatedUser = await User.findOneAndUpdate({ _id: req.params.id },
-
-        //     req.body, {
-        //         new: true, // Return the updated user after the update
-        //         runValidators: true, // Run Mongoose validators on the update data
-        //     }
-        // ).exec();
-
-        // Check if the user exists and was updated successfully
-        // if (!updatedUser) {
-        //     return res.status(404).send('User not found or unable to update.');
-        // }
-
-        // Redirect back to the previous page or send a success message
-
-        // return res.redirect('back'); // Or send a success message, e.g., res.status(200).send("User updated successfully.");
-    } catch (err) {
-        // Handle any errors that occurred during the process
-        console.error('Error updating user:', err);
-        return res.status(500).send('An error occurred while updating the user.');
-    }
-};
-
-
+module.exports.profile = function(req, res) {
+    return res.render('user1', {
+        title: 'user1'
+    });
+}
 
 // rendering the sign up page
 module.exports.signUp = function(req, res) {
@@ -125,17 +59,5 @@ module.exports.create = function(req, res) {
 
 // creating a session while signing in
 module.exports.createSession = function(req, res) {
-    req.flash('success', 'Logged in Successfully');
-    return res.redirect('/');
-
-}
-
-module.exports.destroySession = function(req, res) {
-    req.logout(function(err) {
-        if (err) { return (err); }
-        res.redirect('/users/profile');
-    });
-    req.flash('success', 'You were logged out');
-
-    return res.redirect('/users/sign-in');
+    // will work on it in a while
 }
